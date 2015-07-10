@@ -22,8 +22,6 @@ public class Convertor extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         inPutField.setEditable(false);
-        //cbxInput.setSelectedIndex(-1);
-        //cbxOutput.setSelectedIndex(-1);
     }
     
     public void disabledButtons()
@@ -192,6 +190,7 @@ public class Convertor extends javax.swing.JFrame {
         jScrollPane1.setViewportView(displayArea);
 
         cbxInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binary", "Hexidecimal", "Octal" }));
+        cbxInput.setSelectedIndex(-1);
         cbxInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxInputActionPerformed(evt);
@@ -199,6 +198,7 @@ public class Convertor extends javax.swing.JFrame {
         });
 
         cbxOutput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binary", "Hexidecimal", "Octal" }));
+        cbxOutput.setSelectedIndex(-1);
 
         inputLabel.setText("Input");
 

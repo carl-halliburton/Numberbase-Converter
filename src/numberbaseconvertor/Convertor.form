@@ -133,6 +133,7 @@
             <StringItem index="3" value="Octal"/>
           </StringArray>
         </Property>
+        <Property name="selectedIndex" type="int" value="-1"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxInputActionPerformed"/>
@@ -148,6 +149,7 @@
             <StringItem index="3" value="Octal"/>
           </StringArray>
         </Property>
+        <Property name="selectedIndex" type="int" value="-1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="inputLabel">
