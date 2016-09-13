@@ -6,6 +6,8 @@
 
 package numberbaseconvertor;
 
+import java.awt.*;
+
 /**
  *
  * @author carl
@@ -22,50 +24,53 @@ public class Convertor extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         inPutField.setEditable(false);
+        
+        btnBspace.setFont(new Font("Arial Unicode MS", Font.PLAIN , 11));
+        btnBspace.setText("\u232B");
     }
-    
+
     public void disabledButtons()
     {
-        zeroButton.setEnabled(false);
-        oneButton.setEnabled(false);
-        twoButton.setEnabled(false);
-        twoButton.setEnabled(false);
-        threeButton.setEnabled(false);
-        fourButton.setEnabled(false);
-        fiveButton.setEnabled(false);
-        sixButton.setEnabled(false);
-        sevenButton.setEnabled(false);
-        eightButton.setEnabled(false);
-        nineButton.setEnabled(false);
-        aButton.setEnabled(false);
-        bButton.setEnabled(false);
-        cButton.setEnabled(false);
-        dButton.setEnabled(false);
-        eButton.setEnabled(false);
-        fButton.setEnabled(false);
-        pointButton.setEnabled(false);
+        btnZero.setEnabled(false);
+        btnOne.setEnabled(false);
+        btnTwo.setEnabled(false);
+        btnTwo.setEnabled(false);
+        btnThree.setEnabled(false);
+        btnFour.setEnabled(false);
+        btnFive.setEnabled(false);
+        btnSix.setEnabled(false);
+        btnSeven.setEnabled(false);
+        btnEight.setEnabled(false);
+        btnNine.setEnabled(false);
+        btnA.setEnabled(false);
+        btnB.setEnabled(false);
+        btnC.setEnabled(false);
+        btnD.setEnabled(false);
+        btnE.setEnabled(false);
+        btnF.setEnabled(false);
+        btnDecimal.setEnabled(false);
     }
     
     public void enableButtons()
     {
-        zeroButton.setEnabled(true);
-        oneButton.setEnabled(true);
-        twoButton.setEnabled(true);
-        twoButton.setEnabled(true);
-        threeButton.setEnabled(true);
-        fourButton.setEnabled(true);
-        fiveButton.setEnabled(true);
-        sixButton.setEnabled(true);
-        sevenButton.setEnabled(true);
-        eightButton.setEnabled(true);
-        nineButton.setEnabled(true);
-        aButton.setEnabled(true);
-        bButton.setEnabled(true);
-        cButton.setEnabled(true);
-        dButton.setEnabled(true);
-        eButton.setEnabled(true);
-        fButton.setEnabled(true);
-        pointButton.setEnabled(true);
+        btnZero.setEnabled(true);
+        btnOne.setEnabled(true);
+        btnTwo.setEnabled(true);
+        btnTwo.setEnabled(true);
+        btnThree.setEnabled(true);
+        btnFour.setEnabled(true);
+        btnFive.setEnabled(true);
+        btnSix.setEnabled(true);
+        btnSeven.setEnabled(true);
+        btnEight.setEnabled(true);
+        btnNine.setEnabled(true);
+        btnA.setEnabled(true);
+        btnB.setEnabled(true);
+        btnC.setEnabled(true);
+        btnD.setEnabled(true);
+        btnE.setEnabled(true);
+        btnF.setEnabled(true);
+        btnDecimal.setEnabled(true);
     }
     
     public void printData()
@@ -73,68 +78,81 @@ public class Convertor extends javax.swing.JFrame {
         String inPut = convertor.getInput();
         String outPut = convertor.getOutPut();
         displayArea.append( inPut + "--" + outPut + "\n");
+        convertor.clearFields();
     }
     
     public void convertButton()
     {
+        String temp;
+        
         convertor.setInput( inPutField.getText() );
         inPutField.setText("");
-        if ( cbxInput.getSelectedItem().equals( "Binary" ) && 
-            cbxOutput.getSelectedItem().equals( "Decimal" ) ) {
-            convertor.baseToDecimal( 2 );
+        if ( cbxInput.getSelectedItem().equals("Binary") &&
+           ( cbxOutput.getSelectedItem().equals("Decimal"))    ) 
+            convertor.baseToDecimal(2);
+        else if ( cbxInput.getSelectedItem().equals("Octal") &&
+           ( cbxOutput.getSelectedItem().equals("Decimal")) )   
+            convertor.baseToDecimal(8);
+        else if ( cbxInput.getSelectedItem().equals( "Hexadecimal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Decimal")) )
+             convertor.baseToDecimal(16);
+        else if ( cbxInput.getSelectedItem().equals( "Decimal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Binary")) )
+            convertor.fromDecimal(2);
+        else if ( cbxInput.getSelectedItem().equals( "Decimal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Octal")) )
+            convertor.fromDecimal(8);
+        else if ( cbxInput.getSelectedItem().equals( "Decimal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Hexadecimal")) )
+            convertor.fromDecimal(16);
+        else if ( cbxInput.getSelectedItem().equals( "Binary" ) &&
+           ( cbxOutput.getSelectedItem().equals("Octal")) ) {
+            convertor.baseToDecimal(2);
+            temp = convertor.getInput();
+            convertor.setInput(convertor.getOutPut());
+            convertor.fromDecimal(8);
+            convertor.setInput(temp);
         }
-        
-        /*
-        else if ( inPutBox.getSelectedItem().equals( "Hexidecimal" ) && 
-             outPutBox.getSelectedItem().equals( "Decimal" ) ) {
-             convertor.baseToDecimal( 16 );
-        } 
-        else if ( inPutBox.getSelectedItem().equals( "Octal" ) && 
-            outPutBox.getSelectedItem().equals( "Decimal" ) ) {
-            convertor.baseToDecimal( 8 );
+        else if ( cbxInput.getSelectedItem().equals( "Binary" ) &&
+           ( cbxOutput.getSelectedItem().equals("Hexadecimal")) ) {
+            convertor.baseToDecimal(2);
+            temp = convertor.getInput();
+            convertor.setInput(convertor.getOutPut());
+            convertor.fromDecimal(16);
+            convertor.setInput(temp);
         }
-        else if ( inPutBox.getSelectedItem().equals( "Decimal" ) && 
-            outPutBox.getSelectedItem().equals( "Binary" ) ) {
-            convertor.decimalToBinary();
+        else if ( cbxInput.getSelectedItem().equals( "Octal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Binary")) ) {
+            convertor.baseToDecimal(8);
+            temp = convertor.getInput();
+            convertor.setInput(convertor.getOutPut());
+            convertor.fromDecimal(2);
+            convertor.setInput(temp);
         }
-        else if ( inPutBox.getSelectedItem().equals( "Hexidecimal" ) && 
-             outPutBox.getSelectedItem().equals( "Binary" ) ) {
-            convertor.baseToDecimal( 16 );
-            convertor.decimalToBinary();
+         else if ( cbxInput.getSelectedItem().equals( "Hexadecimal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Binary")) ) {
+            convertor.baseToDecimal(16);
+            temp = convertor.getInput();
+            convertor.setInput(convertor.getOutPut());
+            convertor.fromDecimal(2);
+            convertor.setInput(temp);
         }
-        else if ( inPutBox.getSelectedItem().equals( "Octal" ) && 
-             outPutBox.getSelectedItem().equals( "Binary" ) ) {
-            convertor.baseToDecimal( 8 );
-            convertor.decimalToBinary();
+         else if ( cbxInput.getSelectedItem().equals( "Octal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Hexadecimal")) ) {
+            convertor.baseToDecimal(8);
+            temp = convertor.getInput();
+            convertor.setInput(convertor.getOutPut());
+            convertor.fromDecimal(16);
+            convertor.setInput(temp);
         }
-        else if ( inPutBox.getSelectedItem().equals( "Decimal" ) && 
-             outPutBox.getSelectedItem().equals( "Hexidecimal" ) ) {
-            convertor.decimalToHex();
+         else if ( cbxInput.getSelectedItem().equals( "Hexadecimal" ) &&
+           ( cbxOutput.getSelectedItem().equals("Octal")) ) {
+            convertor.baseToDecimal(16);
+            temp = convertor.getInput();
+            convertor.setInput(convertor.getOutPut());
+            convertor.fromDecimal(8);
+            convertor.setInput(temp);
         }
-        else if ( inPutBox.getSelectedItem().equals( "Bimary" ) && 
-            outPutBox.getSelectedItem().equals( "Hexidecimal" ) ) {
-            convertor.baseToDecimal( 2 ); 
-            convertor.decimalToHex();
-        }
-        else if ( inPutBox.getSelectedItem().equals( "Octal" ) && 
-            outPutBox.getSelectedItem().equals( "Hexidecimal" ) ) {
-            convertor.baseToDecimal( 8 );
-            convertor.decimalToHex();
-        }
-        else if ( inPutBox.getSelectedItem().equals( "Decimal" ) && 
-             outPutBox.getSelectedItem().equals( "Octal" ) ) {
-            convertor.decimalToOctal();
-        }
-        else if ( inPutBox.getSelectedItem().equals( "Binary" ) && 
-            outPutBox.getSelectedItem().equals( "Octal" ) ) {
-            convertor.baseToDecimal( 2 );
-            convertor.decimalToOctal();
-        }
-        else if ( inPutBox.getSelectedItem().equals( "Binary" ) && 
-            outPutBox.getSelectedItem().equals( "Octal" ) ) {
-            convertor.baseToDecimal( 16 );
-            convertor.decimalToOctal();
-        }*/
     }
 
     /**
@@ -159,24 +177,25 @@ public class Convertor extends javax.swing.JFrame {
         convertButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        cButton = new javax.swing.JButton();
-        dButton = new javax.swing.JButton();
-        eButton = new javax.swing.JButton();
-        fButton = new javax.swing.JButton();
-        zeroButton = new javax.swing.JButton();
-        threeButton = new javax.swing.JButton();
-        sixButton = new javax.swing.JButton();
-        nineButton = new javax.swing.JButton();
-        oneButton = new javax.swing.JButton();
-        sevenButton = new javax.swing.JButton();
-        fourButton = new javax.swing.JButton();
-        fiveButton = new javax.swing.JButton();
-        twoButton = new javax.swing.JButton();
-        eightButton = new javax.swing.JButton();
-        bButton = new javax.swing.JButton();
-        aButton = new javax.swing.JButton();
-        pointButton = new javax.swing.JButton();
+        btnC = new javax.swing.JButton();
+        btnD = new javax.swing.JButton();
+        btnE = new javax.swing.JButton();
+        btnF = new javax.swing.JButton();
+        btnZero = new javax.swing.JButton();
+        btnThree = new javax.swing.JButton();
+        btnSix = new javax.swing.JButton();
+        btnNine = new javax.swing.JButton();
+        btnOne = new javax.swing.JButton();
+        btnSeven = new javax.swing.JButton();
+        btnFour = new javax.swing.JButton();
+        btnFive = new javax.swing.JButton();
+        btnTwo = new javax.swing.JButton();
+        btnEight = new javax.swing.JButton();
+        btnB = new javax.swing.JButton();
+        btnA = new javax.swing.JButton();
+        btnDecimal = new javax.swing.JButton();
         inputClear = new javax.swing.JButton();
+        btnBspace = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -189,15 +208,16 @@ public class Convertor extends javax.swing.JFrame {
         displayArea.setRows(5);
         jScrollPane1.setViewportView(displayArea);
 
-        cbxInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binary", "Hexidecimal", "Octal" }));
+        cbxInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binary", "Hexadecimal", "Octal" }));
         cbxInput.setSelectedIndex(-1);
+        cbxInput.setToolTipText("");
         cbxInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxInputActionPerformed(evt);
             }
         });
 
-        cbxOutput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binary", "Hexidecimal", "Octal" }));
+        cbxOutput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binary", "Hexadecimal", "Octal" }));
         cbxOutput.setSelectedIndex(-1);
 
         inputLabel.setText("Input");
@@ -224,122 +244,122 @@ public class Convertor extends javax.swing.JFrame {
             }
         });
 
-        cButton.setText("C");
-        cButton.addActionListener(new java.awt.event.ActionListener() {
+        btnC.setText("C");
+        btnC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cButtonActionPerformed(evt);
+                btnCActionPerformed(evt);
             }
         });
 
-        dButton.setText("D");
-        dButton.addActionListener(new java.awt.event.ActionListener() {
+        btnD.setText("D");
+        btnD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dButtonActionPerformed(evt);
+                btnDActionPerformed(evt);
             }
         });
 
-        eButton.setText("E");
-        eButton.addActionListener(new java.awt.event.ActionListener() {
+        btnE.setText("E");
+        btnE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eButtonActionPerformed(evt);
+                btnEActionPerformed(evt);
             }
         });
 
-        fButton.setText("F");
-        fButton.addActionListener(new java.awt.event.ActionListener() {
+        btnF.setText("F");
+        btnF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fButtonActionPerformed(evt);
+                btnFActionPerformed(evt);
             }
         });
 
-        zeroButton.setText("0");
-        zeroButton.addActionListener(new java.awt.event.ActionListener() {
+        btnZero.setText("0");
+        btnZero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zeroButtonActionPerformed(evt);
+                btnZeroActionPerformed(evt);
             }
         });
 
-        threeButton.setText("3");
-        threeButton.addActionListener(new java.awt.event.ActionListener() {
+        btnThree.setText("3");
+        btnThree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                threeButtonActionPerformed(evt);
+                btnThreeActionPerformed(evt);
             }
         });
 
-        sixButton.setText("6");
-        sixButton.addActionListener(new java.awt.event.ActionListener() {
+        btnSix.setText("6");
+        btnSix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sixButtonActionPerformed(evt);
+                btnSixActionPerformed(evt);
             }
         });
 
-        nineButton.setText("9");
-        nineButton.addActionListener(new java.awt.event.ActionListener() {
+        btnNine.setText("9");
+        btnNine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nineButtonActionPerformed(evt);
+                btnNineActionPerformed(evt);
             }
         });
 
-        oneButton.setText("1");
-        oneButton.addActionListener(new java.awt.event.ActionListener() {
+        btnOne.setText("1");
+        btnOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                oneButtonActionPerformed(evt);
+                btnOneActionPerformed(evt);
             }
         });
 
-        sevenButton.setText("7");
-        sevenButton.addActionListener(new java.awt.event.ActionListener() {
+        btnSeven.setText("7");
+        btnSeven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sevenButtonActionPerformed(evt);
+                btnSevenActionPerformed(evt);
             }
         });
 
-        fourButton.setText("4");
-        fourButton.addActionListener(new java.awt.event.ActionListener() {
+        btnFour.setText("4");
+        btnFour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fourButtonActionPerformed(evt);
+                btnFourActionPerformed(evt);
             }
         });
 
-        fiveButton.setText("5");
-        fiveButton.addActionListener(new java.awt.event.ActionListener() {
+        btnFive.setText("5");
+        btnFive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fiveButtonActionPerformed(evt);
+                btnFiveActionPerformed(evt);
             }
         });
 
-        twoButton.setText("2");
-        twoButton.addActionListener(new java.awt.event.ActionListener() {
+        btnTwo.setText("2");
+        btnTwo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                twoButtonActionPerformed(evt);
+                btnTwoActionPerformed(evt);
             }
         });
 
-        eightButton.setText("8");
-        eightButton.addActionListener(new java.awt.event.ActionListener() {
+        btnEight.setText("8");
+        btnEight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eightButtonActionPerformed(evt);
+                btnEightActionPerformed(evt);
             }
         });
 
-        bButton.setText("B");
-        bButton.addActionListener(new java.awt.event.ActionListener() {
+        btnB.setText("B");
+        btnB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bButtonActionPerformed(evt);
+                btnBActionPerformed(evt);
             }
         });
 
-        aButton.setText("A");
-        aButton.addActionListener(new java.awt.event.ActionListener() {
+        btnA.setText("A");
+        btnA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aButtonActionPerformed(evt);
+                btnAActionPerformed(evt);
             }
         });
 
-        pointButton.setText(".");
-        pointButton.addActionListener(new java.awt.event.ActionListener() {
+        btnDecimal.setText(".");
+        btnDecimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pointButtonActionPerformed(evt);
+                btnDecimalActionPerformed(evt);
             }
         });
 
@@ -348,74 +368,76 @@ public class Convertor extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 2, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnTwo)
+                    .addComponent(btnFive)
+                    .addComponent(btnEight)
+                    .addComponent(btnDecimal))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(pointButton)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnSix)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSeven)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnF))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(btnThree)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnFour))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(btnZero)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnOne)))
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(btnC)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnD))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(btnA)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnB)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(zeroButton)
-                        .addGap(7, 7, 7)
-                        .addComponent(oneButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(twoButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(threeButton)
-                                .addComponent(nineButton))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(7, 7, 7)
-                                    .addComponent(fourButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(fiveButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(dButton))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(aButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(bButton))))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(sixButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(sevenButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(eightButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(fButton)
-                                .addComponent(eButton))))))
+                        .addComponent(btnNine)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(zeroButton)
-                    .addComponent(oneButton)
-                    .addComponent(twoButton)
-                    .addComponent(cButton)
-                    .addComponent(pointButton))
+                    .addComponent(btnOne)
+                    .addComponent(btnA)
+                    .addComponent(btnB)
+                    .addComponent(btnZero)
+                    .addComponent(btnDecimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fiveButton)
-                    .addComponent(fourButton)
-                    .addComponent(threeButton)
-                    .addComponent(dButton))
+                    .addComponent(btnThree)
+                    .addComponent(btnTwo)
+                    .addComponent(btnFour)
+                    .addComponent(btnC)
+                    .addComponent(btnD))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sixButton)
-                    .addComponent(sevenButton)
-                    .addComponent(eightButton)
-                    .addComponent(eButton))
+                    .addComponent(btnSix)
+                    .addComponent(btnSeven)
+                    .addComponent(btnE)
+                    .addComponent(btnF)
+                    .addComponent(btnFive))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nineButton)
-                    .addComponent(aButton)
-                    .addComponent(bButton)
-                    .addComponent(fButton))
+                    .addComponent(btnNine)
+                    .addComponent(btnEight))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -426,22 +448,29 @@ public class Convertor extends javax.swing.JFrame {
             }
         });
 
+        btnBspace.setText("B/S");
+        btnBspace.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBspaceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jSeparator1)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(convertButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(inputClear))
-                        .addComponent(refreshButton, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(inPutField, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(convertButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputClear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBspace))
+                    .addComponent(refreshButton)
+                    .addComponent(inPutField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbxInput, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -453,15 +482,16 @@ public class Convertor extends javax.swing.JFrame {
                             .addComponent(cbxOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
-                                .addComponent(outPutLabel)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addComponent(outPutLabel))))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(refreshButton)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -478,10 +508,10 @@ public class Convertor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(convertButton)
-                    .addComponent(inputClear))
+                    .addComponent(inputClear)
+                    .addComponent(btnBspace))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -509,129 +539,138 @@ public class Convertor extends javax.swing.JFrame {
     private void cbxInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxInputActionPerformed
         enableButtons();
         if ( cbxInput.getSelectedItem().equals( "Decimal" ) ) {
-            aButton.setEnabled(false);
-            bButton.setEnabled(false);
-            cButton.setEnabled(false);
-            dButton.setEnabled(false);
-            eButton.setEnabled(false);
-            fButton.setEnabled(false);
+            btnA.setEnabled(false);
+            btnB.setEnabled(false);
+            btnC.setEnabled(false);
+            btnD.setEnabled(false);
+            btnE.setEnabled(false);
+            btnF.setEnabled(false);
         }
         else if ( cbxInput.getSelectedItem().equals( "Binary" ) ) {
-            twoButton.setEnabled(false);
-            threeButton.setEnabled(false);
-            fourButton.setEnabled(false);
-            fiveButton.setEnabled(false);
-            sixButton.setEnabled(false);
-            sevenButton.setEnabled(false);
-            eightButton.setEnabled(false);
-            nineButton.setEnabled(false);
-            aButton.setEnabled(false);
-            bButton.setEnabled(false);
-            cButton.setEnabled(false);
-            dButton.setEnabled(false);
-            eButton.setEnabled(false);
-            fButton.setEnabled(false);
+            btnTwo.setEnabled(false);
+            btnThree.setEnabled(false);
+            btnFour.setEnabled(false);
+            btnFive.setEnabled(false);
+            btnSix.setEnabled(false);
+            btnSeven.setEnabled(false);
+            btnEight.setEnabled(false);
+            btnNine.setEnabled(false);
+            btnA.setEnabled(false);
+            btnB.setEnabled(false);
+            btnC.setEnabled(false);
+            btnD.setEnabled(false);
+            btnE.setEnabled(false);
+            btnF.setEnabled(false);
         }
         else if ( cbxInput.getSelectedItem().equals( "Octal" ) ) {
-            eightButton.setEnabled(false);
-            nineButton.setEnabled(false);
-            aButton.setEnabled(false);
-            bButton.setEnabled(false);
-            cButton.setEnabled(false);
-            dButton.setEnabled(false);
-            eButton.setEnabled(false);
-            fButton.setEnabled(false);
+            btnEight.setEnabled(false);
+            btnNine.setEnabled(false);
+            btnA.setEnabled(false);
+            btnB.setEnabled(false);
+            btnC.setEnabled(false);
+            btnD.setEnabled(false);
+            btnE.setEnabled(false);
+            btnF.setEnabled(false);
         }
     }//GEN-LAST:event_cbxInputActionPerformed
 
-    private void cButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cButtonActionPerformed
+    private void btnCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCActionPerformed
         String temp = "C";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_cButtonActionPerformed
+    }//GEN-LAST:event_btnCActionPerformed
 
-    private void zeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonActionPerformed
+    private void btnZeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZeroActionPerformed
         String temp = "0";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_zeroButtonActionPerformed
+    }//GEN-LAST:event_btnZeroActionPerformed
 
-    private void oneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneButtonActionPerformed
+    private void btnOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOneActionPerformed
         String temp = "1";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_oneButtonActionPerformed
+    }//GEN-LAST:event_btnOneActionPerformed
 
-    private void twoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoButtonActionPerformed
+    private void btnTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTwoActionPerformed
         String temp = "2";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_twoButtonActionPerformed
+    }//GEN-LAST:event_btnTwoActionPerformed
 
-    private void threeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeButtonActionPerformed
+    private void btnThreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThreeActionPerformed
         String temp = "3";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_threeButtonActionPerformed
+    }//GEN-LAST:event_btnThreeActionPerformed
 
-    private void fourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourButtonActionPerformed
+    private void btnFourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFourActionPerformed
         String temp = "4";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_fourButtonActionPerformed
+    }//GEN-LAST:event_btnFourActionPerformed
 
-    private void fiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveButtonActionPerformed
+    private void btnFiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiveActionPerformed
         String temp = "5";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_fiveButtonActionPerformed
+    }//GEN-LAST:event_btnFiveActionPerformed
 
-    private void dButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dButtonActionPerformed
-        String temp = "d";
+    private void btnDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDActionPerformed
+        String temp = "D";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_dButtonActionPerformed
+    }//GEN-LAST:event_btnDActionPerformed
 
-    private void sixButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixButtonActionPerformed
+    private void btnSixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSixActionPerformed
         String temp = "6";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_sixButtonActionPerformed
+    }//GEN-LAST:event_btnSixActionPerformed
 
-    private void sevenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenButtonActionPerformed
+    private void btnSevenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSevenActionPerformed
         String temp = "7";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_sevenButtonActionPerformed
+    }//GEN-LAST:event_btnSevenActionPerformed
 
-    private void eightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightButtonActionPerformed
+    private void btnEightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEightActionPerformed
         String temp = "8";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_eightButtonActionPerformed
+    }//GEN-LAST:event_btnEightActionPerformed
 
-    private void eButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButtonActionPerformed
+    private void btnEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEActionPerformed
         String temp = "E";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_eButtonActionPerformed
+    }//GEN-LAST:event_btnEActionPerformed
 
-    private void nineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineButtonActionPerformed
+    private void btnNineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNineActionPerformed
         String temp = "9";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_nineButtonActionPerformed
+    }//GEN-LAST:event_btnNineActionPerformed
 
-    private void aButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aButtonActionPerformed
+    private void btnAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAActionPerformed
         String temp = "A";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_aButtonActionPerformed
+    }//GEN-LAST:event_btnAActionPerformed
 
-    private void bButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bButtonActionPerformed
+    private void btnBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBActionPerformed
         String temp = "B";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_bButtonActionPerformed
+    }//GEN-LAST:event_btnBActionPerformed
 
-    private void fButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fButtonActionPerformed
+    private void btnFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFActionPerformed
         String temp = "F";
         inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_fButtonActionPerformed
+    }//GEN-LAST:event_btnFActionPerformed
 
-    private void pointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pointButtonActionPerformed
+    private void btnDecimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecimalActionPerformed
         String temp = ".";
-        inPutField.setText( inPutField.getText() + temp );
-    }//GEN-LAST:event_pointButtonActionPerformed
+        if (inPutField.getText().equals("") == true)
+            inPutField.setText( inPutField.getText() + "0" + temp );
+        else
+            inPutField.setText( inPutField.getText() + temp );
+    }//GEN-LAST:event_btnDecimalActionPerformed
 
     private void inputClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputClearActionPerformed
         inPutField.setText("");
     }//GEN-LAST:event_inputClearActionPerformed
+
+    private void btnBspaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBspaceActionPerformed
+        String temp = inPutField.getText();
+        
+        inPutField.setText(temp.substring(0,temp.length()-1));
+    }//GEN-LAST:event_btnBspaceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -669,19 +708,28 @@ public class Convertor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aButton;
-    private javax.swing.JButton bButton;
-    private javax.swing.JButton cButton;
+    private javax.swing.JButton btnA;
+    private javax.swing.JButton btnB;
+    private javax.swing.JButton btnBspace;
+    private javax.swing.JButton btnC;
+    private javax.swing.JButton btnD;
+    private javax.swing.JButton btnDecimal;
+    private javax.swing.JButton btnE;
+    private javax.swing.JButton btnEight;
+    private javax.swing.JButton btnF;
+    private javax.swing.JButton btnFive;
+    private javax.swing.JButton btnFour;
+    private javax.swing.JButton btnNine;
+    private javax.swing.JButton btnOne;
+    private javax.swing.JButton btnSeven;
+    private javax.swing.JButton btnSix;
+    private javax.swing.JButton btnThree;
+    private javax.swing.JButton btnTwo;
+    private javax.swing.JButton btnZero;
     private javax.swing.JComboBox cbxInput;
     private javax.swing.JComboBox cbxOutput;
     private javax.swing.JButton convertButton;
-    private javax.swing.JButton dButton;
     private javax.swing.JTextArea displayArea;
-    private javax.swing.JButton eButton;
-    private javax.swing.JButton eightButton;
-    private javax.swing.JButton fButton;
-    private javax.swing.JButton fiveButton;
-    private javax.swing.JButton fourButton;
     private javax.swing.JTextField inPutField;
     private javax.swing.JButton inputClear;
     private javax.swing.JLabel inputLabel;
@@ -690,15 +738,7 @@ public class Convertor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JButton nineButton;
-    private javax.swing.JButton oneButton;
     private javax.swing.JLabel outPutLabel;
-    private javax.swing.JButton pointButton;
     private javax.swing.JButton refreshButton;
-    private javax.swing.JButton sevenButton;
-    private javax.swing.JButton sixButton;
-    private javax.swing.JButton threeButton;
-    private javax.swing.JButton twoButton;
-    private javax.swing.JButton zeroButton;
     // End of variables declaration//GEN-END:variables
 }
